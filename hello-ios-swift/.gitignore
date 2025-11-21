@@ -1,0 +1,20 @@
+# Secrets
+Secrets.plist
+
+# Xcode
+*.xcuserstate
+*.xcuserdatad/
+*.xcscmblueprint
+*.xccheckout
+DerivedData/
+build/
+
+# CocoaPods
+Pods/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
