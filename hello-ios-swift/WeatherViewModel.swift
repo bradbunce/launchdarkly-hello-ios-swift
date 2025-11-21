@@ -41,7 +41,7 @@ struct Weather {
     var city: String = "San Francisco"
     var region: String = "California"
     var country: String = "USA"
-    var localTime: String = "12:00 PM"
+    var timeZoneIdentifier: String = "America/Los_Angeles"
     var condition: String = "Partly Cloudy"
     var conditionCode: Int = 1003
     var isDay: Bool = true
@@ -51,6 +51,16 @@ struct Weather {
     var feelsLikeF: Int = 63
     var humidity: Int = 65
     var windSpeed: Int = 12
+    
+    /// Returns the current time in the location's timezone, updated in real-time
+    var localTime: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        if let timeZone = TimeZone(identifier: timeZoneIdentifier) {
+            formatter.timeZone = timeZone
+        }
+        return formatter.string(from: Date())
+    }
 }
 
 // WeatherAPI.com response models
@@ -64,6 +74,7 @@ struct WeatherLocation: Codable {
     let region: String
     let country: String
     let localtime: String
+    let tz_id: String
 }
 
 struct CurrentWeather: Codable {
@@ -89,9 +100,26 @@ class WeatherViewModel: ObservableObject {
     @Published var useFahrenheit: Bool = true
     @Published var useDynamicTheme: Bool = true
     @Published var isLoading: Bool = false
+    @Published private var timeRefreshTrigger: Bool = false
+    
+    /// Access this to force view updates when time refreshes
+    var currentLocalTime: String {
+        // Reference timeRefreshTrigger to create dependency
+        _ = timeRefreshTrigger
+        return weather.localTime
+    }
     
     let temperatureFlagKey = "use-fahrenheit"
     let themeFlagKey = "use-dynamic-theme"
+    
+    private var autoRefreshTask: Task<Void, Never>?
+    
+    /// Returns the current local time for the weather location
+    var displayLocalTime: String {
+        // This dependency ensures the view updates when timeRefreshTrigger changes
+        _ = timeRefreshTrigger
+        return weather.localTime
+    }
     
     // Weather API key loaded from Secrets.plist
     private var weatherAPIKey: String {
@@ -186,6 +214,60 @@ class WeatherViewModel: ObservableObject {
         Task {
             await fetchWeather(for: weather.city)
         }
+        
+        // Start auto-refresh at the top of each minute
+        startAutoRefresh()
+    }
+    
+    /// Starts the auto-refresh timer that triggers at the top of each minute
+    private func startAutoRefresh() {
+        autoRefreshTask?.cancel()
+        
+        autoRefreshTask = Task {
+            print("🕐 Auto-refresh started")
+            
+            while !Task.isCancelled {
+                // Calculate time until the next minute boundary
+                let now = Date()
+                let calendar = Calendar.current
+                
+                // Get the start of the next minute
+                guard let nextMinute = calendar.nextDate(
+                    after: now,
+                    matching: DateComponents(second: 0),
+                    matchingPolicy: .nextTime
+                ) else {
+                    print("🕐 Failed to calculate next minute")
+                    try? await Task.sleep(for: .seconds(60))
+                    continue
+                }
+                
+                let secondsUntilNextMinute = nextMinute.timeIntervalSince(now)
+                print("🕐 Waiting \(secondsUntilNextMinute) seconds until next refresh")
+                
+                // Wait until the top of the next minute
+                try? await Task.sleep(for: .seconds(secondsUntilNextMinute))
+                
+                guard !Task.isCancelled else {
+                    print("🕐 Auto-refresh cancelled")
+                    break
+                }
+                
+                print("🕐 Refreshing weather for \(weather.city)")
+                
+                // Toggle to trigger view update for time display
+                timeRefreshTrigger.toggle()
+                
+                // Refresh weather data
+                await fetchWeather(for: weather.city)
+            }
+        }
+    }
+    
+    /// Stops the auto-refresh timer
+    func stopAutoRefresh() {
+        autoRefreshTask?.cancel()
+        autoRefreshTask = nil
     }
     
     private func loadInitialFlagValues() {
@@ -307,7 +389,7 @@ class WeatherViewModel: ObservableObject {
         weather.city = response.location.name
         weather.region = response.location.region
         weather.country = response.location.country
-        weather.localTime = formatLocalTime(response.location.localtime)
+        weather.timeZoneIdentifier = response.location.tz_id
         weather.condition = response.current.condition.text
         weather.conditionCode = response.current.condition.code
         weather.isDay = response.current.is_day == 1
@@ -317,19 +399,6 @@ class WeatherViewModel: ObservableObject {
         weather.feelsLikeF = Int(response.current.feelslike_f)
         weather.humidity = response.current.humidity
         weather.windSpeed = Int(response.current.wind_mph)
-    }
-    
-    private func formatLocalTime(_ localtime: String) -> String {
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "h:mm a"
-        
-        if let date = inputFormatter.date(from: localtime) {
-            return outputFormatter.string(from: date)
-        }
-        return localtime
     }
     
     private func recordError(_ error: WeatherError) {

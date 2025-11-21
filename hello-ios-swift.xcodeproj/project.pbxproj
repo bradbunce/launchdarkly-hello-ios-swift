@@ -17,9 +17,6 @@
 		A27D89F22ED0DAE70011C23C /* LaunchDarklySessionReplay in Frameworks */ = {isa = PBXBuildFile; productRef = A27D89F12ED0DAE70011C23C /* LaunchDarklySessionReplay */; };
 		A27D8A0F2ED0F1CD0011C23C /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D8A0E2ED0F1CD0011C23C /* WeatherView.swift */; };
 		A27D8A112ED0F1F50011C23C /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D8A102ED0F1EC0011C23C /* WeatherViewModel.swift */; };
-		A27D8A132ED100DD0011C23C /* README 2.md in Resources */ = {isa = PBXBuildFile; fileRef = A27D8A122ED100DD0011C23C /* README 2.md */; };
-		A27D8A152ED110C80011C23C /* README 3.md in Resources */ = {isa = PBXBuildFile; fileRef = A27D8A142ED110C80011C23C /* README 3.md */; };
-		A2A8F88F2ED0327500F638E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A2A8F88E2ED0327500F638E8 /* README.md */; };
 		A2A8F8912ED034D900F638E8 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2A8F8902ED034D900F638E8 /* Secrets.plist */; };
 		A2A8F8932ED034DD00F638E8 /* Secrets.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2A8F8922ED034DD00F638E8 /* Secrets.example.plist */; };
 		A2A8F8952ED034E300F638E8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A2A8F8942ED034E300F638E8 /* .gitignore */; };
@@ -35,15 +32,9 @@
 		77B731C31E99CCB60048C491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A27D8A0E2ED0F1CD0011C23C /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		A27D8A102ED0F1EC0011C23C /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
-		A27D8A122ED100DD0011C23C /* README 2.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README 2.md"; sourceTree = "<group>"; };
-		A27D8A142ED110C80011C23C /* README 3.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README 3.md"; sourceTree = "<group>"; };
-		A2A8F88E2ED0327500F638E8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A2A8F8902ED034D900F638E8 /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		A2A8F8922ED034DD00F638E8 /* Secrets.example.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.example.plist; sourceTree = "<group>"; };
 		A2A8F8942ED034E300F638E8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		A2F939712ED1131D00008D1C /* README 2.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README 2.md"; sourceTree = "<group>"; };
-		A2F939722ED1132400008D1C /* README 3.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README 3.md"; sourceTree = "<group>"; };
-		A2F939732ED1132400008D1C /* README 4.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README 4.md"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +56,6 @@
 			children = (
 				77B731B61E99CCB60048C491 /* hello-ios-swift */,
 				77B731B51E99CCB60048C491 /* Products */,
-				A2F939712ED1131D00008D1C /* README 2.md */,
-				A2F939722ED1132400008D1C /* README 3.md */,
-				A2F939732ED1132400008D1C /* README 4.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,12 +78,9 @@
 				77B731BE1E99CCB60048C491 /* Assets.xcassets */,
 				77B731C01E99CCB60048C491 /* LaunchScreen.storyboard */,
 				77B731C31E99CCB60048C491 /* Info.plist */,
-				A2A8F88E2ED0327500F638E8 /* README.md */,
 				A2A8F8902ED034D900F638E8 /* Secrets.plist */,
 				A2A8F8922ED034DD00F638E8 /* Secrets.example.plist */,
 				A2A8F8942ED034E300F638E8 /* .gitignore */,
-				A27D8A122ED100DD0011C23C /* README 2.md */,
-				A27D8A142ED110C80011C23C /* README 3.md */,
 			);
 			path = "hello-ios-swift";
 			sourceTree = "<group>";
@@ -167,12 +152,9 @@
 			files = (
 				A2A8F8932ED034DD00F638E8 /* Secrets.example.plist in Resources */,
 				A2A8F8952ED034E300F638E8 /* .gitignore in Resources */,
-				A27D8A132ED100DD0011C23C /* README 2.md in Resources */,
 				77B731C21E99CCB60048C491 /* LaunchScreen.storyboard in Resources */,
-				A27D8A152ED110C80011C23C /* README 3.md in Resources */,
 				A2A8F8912ED034D900F638E8 /* Secrets.plist in Resources */,
 				77B731BF1E99CCB60048C491 /* Assets.xcassets in Resources */,
-				A2A8F88F2ED0327500F638E8 /* README.md in Resources */,
 				77B731BD1E99CCB60048C491 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

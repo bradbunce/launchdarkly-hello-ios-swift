@@ -52,7 +52,7 @@ struct WeatherView: View {
                             .font(.system(size: 32, weight: .semibold))
                         
                         if !viewModel.weather.region.isEmpty {
-                            Text("\(viewModel.weather.country) - \(viewModel.weather.localTime)")
+                            Text("\(viewModel.weather.country) - \(viewModel.currentLocalTime)")
                                 .font(.system(size: 16))
                                 .opacity(0.9)
                         }
