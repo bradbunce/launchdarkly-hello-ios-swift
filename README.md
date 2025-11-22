@@ -5,6 +5,7 @@ A SwiftUI weather application demonstrating LaunchDarkly's iOS SDK with feature 
 ## Features
 
 - Real-time weather data from WeatherAPI
+- Auto-refresh weather data at the top of each minute
 - Feature flag-controlled temperature units (Fahrenheit/Celsius)
 - Dynamic weather-based themes controlled by feature flags
 - City search functionality
@@ -18,7 +19,7 @@ This app demonstrates LaunchDarkly feature flags in a real-world weather applica
 
 1. **Initialization**: The app loads your LaunchDarkly mobile key and connects to WeatherAPI
 2. **SDK Connection**: The LaunchDarkly SDK initializes with a user context (user key: "example-user-key", name: "Sandy")
-3. **Weather Data**: Fetches current weather for a city (defaults to San Francisco)
+3. **Weather Data**: Fetches current weather for a city (defaults to San Francisco) and automatically refreshes at the top of each minute
 4. **Feature Flag #1 - Temperature Units**: 
    - Flag key: "sample-feature"
    - `true` = Display temperature in Fahrenheit
